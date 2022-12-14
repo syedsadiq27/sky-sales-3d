@@ -1,0 +1,70 @@
+ACC.track = {
+	trackAddToCart: function (productCode, quantity, cartData)
+	{
+		window.mediator.publish('trackAddToCart',{
+			productCode: productCode,
+			quantity: quantity,
+			cartData: cartData,
+			saleStatus: cartData.saleStatus,
+			stockLevelStatus: cartData.stockLevelStatus,
+			discountPercent: cartData.discountPercent,
+			discountPrice: cartData.discountPrice
+		});
+	},
+	trackRemoveFromCart: function(productCode, initialCartQuantity,gaData)
+	{
+		window.mediator.publish('trackRemoveFromCart',{
+			productCode: productCode,
+			initialCartQuantity: initialCartQuantity,
+			saleStatus: gaData.saleStatus,
+			stockLevelStatus: gaData.stockLevelStatus,
+			discountPercent: gaData.discountPercent,
+			discountPrice: gaData.discountPrice
+		});
+	},
+
+	trackUpdateCart: function(productCode, initialCartQuantity, newCartQuantity,saleStatus,stockLevelStatus,discountPercent,discountPrice)
+	{
+		window.mediator.publish('trackUpdateCart',{
+			productCode: productCode,
+			initialCartQuantity: initialCartQuantity,
+			newCartQuantity: newCartQuantity,
+			saleStatus: saleStatus,
+			stockLevelStatus: stockLevelStatus,
+			discountPercent: discountPercent,
+			discountPrice: discountPrice
+
+		});
+	},
+
+    trackShowReviewClick: function(productCode)
+    {
+        window.mediator.publish('trackShowReviewClick',{});
+    },
+	trackProductClick:function(gaData){
+    		window.mediator.publish('trackProductClick',{
+    			productCode: gaData.id,
+    			name:gaData.name,
+    			quantity: gaData.quantity,
+    			saleStatus: gaData.saleStatus,
+    			stockLevelStatus: gaData.stockLevelStatus,
+    			discountPercent: gaData.discountPercent,
+    			discountPrice: gaData.discountPrice,
+    			price:gaData.price,
+                pagetype:gaData.pagetype
+    		});
+    	},
+trackPromotionClick: function (id, name,banners,slots)
+        	{
+        		window.mediator.publish('trackPromotionClick',{
+        			id: id,
+        			name: name,
+        			banners:banners,
+        			slots:slots
+
+
+        		});
+        	}
+
+
+};

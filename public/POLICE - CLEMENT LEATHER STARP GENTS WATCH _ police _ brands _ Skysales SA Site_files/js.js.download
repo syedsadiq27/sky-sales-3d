@@ -1,0 +1,415 @@
+$( document ).ready(function() {
+
+   if ($("body").hasClass("language-ar")){
+      $('[data-countdown]').each(function() {
+           var finalDateIndexValue = $(this).data('countdown');
+              
+           //var enddatear = moment(finalDateIndexValue, 'YYYY-MM-DD HH:mm:ss').toDate();
+           var enddatear = moment.tz(finalDateIndexValue, 'YYYY-MM-DD HH:mm:ss', "Asia/Riyadh").toDate();
+           $(this).countdown(enddatear, function(event) {
+              
+              $(this).html(event.strftime(' <span class="border-style"> <div class="counter-text"> يوم </div> <span class="time">%D</span>  </span> <span class="border-style"> <div class="counter-text"> ساعة </div> <span class="time"> %H </span>  </span> <span class="border-style"> <div class="counter-text"> دقائق </div> <span class="time"> %M </span> </span>  <span class="border-style secound-timer"> <div class="counter-text"> ثواني </div> <span class="time">%S</span> </span>'));
+           });
+         }); 
+ }
+ else{
+      $('[data-countdown]').each(function() {
+           var finalDateIndexValue = $(this).data('countdown');
+          // var enddate = moment(finalDateIndexValue, 'YYYY-MM-DD HH:mm:ss').toDate();
+           var enddate = moment.tz(finalDateIndexValue, 'YYYY-MM-DD HH:mm:ss', "Asia/Riyadh").toDate();
+           $(this).countdown(enddate, function(event) {
+              
+              $(this).html(event.strftime(' <span class="border-style"> <div class="counter-text"> Days </div> <span class="time">%D</span>  </span> <span class="border-style"> <div class="counter-text"> Hour </div> <span class="time"> %H </span>  </span> <span class="border-style"> <div class="counter-text"> Minutes </div> <span class="time"> %M </span> </span>  <span class="border-style secound-timer"> <div class="counter-text"> Seconds </div> <span class="time">%S</span> </span>'));
+           });
+         }); 
+ }
+ 
+
+
+   if ($(".se-pre-con").length) {
+   $(".se-pre-con").fadeOut('100');
+   }
+});
+$(document).ready(function () {
+   var $form = $('#mc-embedded-subscribe-form')
+   if ($form.length > 0) {
+     $('#mc-embedded-subscribe-form input[type="submit"]').bind('click', function (event) {
+       if (event) event.preventDefault()
+       register($form)
+     })
+   }
+ })
+ 
+ function register($form) {
+   $('#mc-embedded-subscribe').val(ACC.sendingsubscribe);
+   $.ajax({
+     type: $form.attr('method'),
+     url: $form.attr('action'),
+     data: $form.serialize(),
+     cache: false,
+     dataType: 'json',
+     contentType: 'application/json; charset=utf-8',
+     error: function (err) { alert(ACC.errorsubscribe) },
+     success: function (data) {
+       $('#mc-embedded-subscribe').val(ACC.msgsubscribe)
+       if (data.result === 'success') {
+         // Yeahhhh Success
+         console.log(data.msg)
+         $('#mce-EMAIL').css('borderColor', '#759877')
+         $('#subscribe-result').css('color', '#759877')
+         $('#subscribe-result').html(ACC.thanksubscribe)
+         $('#mce-EMAIL').val('')
+       } else {
+         // Something went wrong, do something to notify the user.
+         console.log(data.msg)
+         $('#mce-EMAIL').css('borderColor', '#f44336')
+         $('#subscribe-result').css('color', '#f44336')
+         $('#subscribe-result').html('<p>' + data.msg.substring(4) + '</p>')
+       }
+     }
+   })
+ }; 
+$('body').on('click', function (e) {
+  
+	$('.bootstrap-select.form-control').removeClass('open');
+	
+   });
+   $("#change-country option, #mcountry option, #addresscountry option").each(function(){
+	   $(this).addClass("option-with-flag");
+	   $(this).attr("data-content","<span class='inline-flag flag "+ $(this).val().toLowerCase()+"'></span><span class='text'>"+$(this).html()+"</span>");    
+   });
+   $('#change-country').selectpicker('refresh');
+   $('#mcountry').selectpicker('refresh');
+   $('#addresscountry').selectpicker('refresh');
+   $('select').selectpicker();
+
+   $("#mobileCountry option, #acountry option").each(function(){
+      $(this).addClass("option-with-flag");
+      $(this).attr("data-content","<span class='inline-flag flag "+ $(this).val().toLowerCase()+"'></span><span class='text'>"+$(this).html()+"</span>");    
+  });
+
+  $('#mobileCountry').selectpicker('refresh');
+  $('#acountry').selectpicker('refresh');
+   $('#date').datepicker({
+	   language: 'en',
+	   dateFormat: 'dd/mm/yyyy'
+   });
+   
+   var ias = $.ias({
+		 container:  ".product__listing.product__grid",
+		 item:       ".product-item",
+		 delay: 300,
+		 pagination: ".plpage .pagination-bar.top .pagination",
+		 next:       ".plpage .pagination-bar.top .pagination-next a"
+	   });
+   ias.extension(new IASSpinnerExtension());
+   ias.extension(new IASTriggerExtension({
+	   text: '',
+	   offset: '100',
+	   html: '<div class="ias-trigger ias-trigger-next" ><a class="btn btn-primary btn-block">{text}</a></div>'// override text when no pages left
+   })); // shows a trigger after page 3
+   ias.extension(new IASNoneLeftExtension({
+   text: '',
+   }));
+   
+   ias.on('rendered', function() {
+   
+	   ACC.ratingstars.bindRatingStars();
+	   ACC.product.bindToAddToCartForm();
+	   ACC.product.bindToAddToCartStorePickUpForm();
+	   ACC.product.enableStorePickupButton();
+	   ACC.product.enableAddToCartButton();
+      with (ACC.mywishlist) {
+         // getWishlists();
+         getWishlistByPK();
+         getDefaultWishlist();
+         getWishListEntries();
+         removeWishListEntryByProductCode();
+         removeWishListEntryByProductCodeAndPK();
+         editWishlistName();
+         addWishlistEntry();
+         addAllEntriesToCart();
+         removeAllWishlistEntries();
+         isProductInWishListByPK();
+         isProductInWishList();
+         removeWishlist();
+         // createWishlist();
+      }
+   });
+   $('.link_ar').click(function(){ 
+	   $('.lang-selector').val('ar');
+	   $(".lang-form").submit();
+	   
+   })
+   $('.link_en').click(function(){ 
+	   $('.lang-selector').val('en');
+	   $(".lang-form").submit();
+	
+	   
+   })
+
+  
+  $(window).trigger('resize');
+   //popup form_login in home_page
+   $(".registration .login_action").click(function(){
+	   $(".darkback").fadeIn("300", function () {$('.darkback').removeClass("hidden");});
+	   $(".login_box").fadeIn("300", function () {
+		   $('.login_box').removeClass("hidden");
+		   
+	   });
+	   
+	   $('.registration').addClass("click_border");
+	   
+	   });
+   
+   $('.darkback').click(function(){
+	   $(".login_box").fadeOut("slow").fadeOut("slow", function () {
+		   $('.login_box').addClass("hidden");
+		   $('.darkback').addClass("hidden");
+		   
+	   });
+	   $('.registration').removeClass("click_border");
+   });
+   //popup personal_info in home_page in sm and xs 
+   $(".navigation--bottom .personal_info").click(function(){
+		$(".navigation--bottom .NAVcompONENT").toggle();
+	   
+	   
+	   });
+	   
+   
+   // popup personal_info in home_pageNAVcompONENT
+   $(".navigation--top .personal_info").click(function(){
+	   $(".darkback").fadeIn("300", function () {$('.darkback').removeClass("hidden");});
+	   $(".navigation--top .NAVcompONENT").fadeIn("300", function () {
+		   $('.navigation--top .NAVcompONENT').removeClass("hidden");
+		   
+	   });
+	   
+	   
+	   
+	   });
+   
+   $('.darkback').click(function(){
+	   $(".NAVcompONENT").fadeOut("slow").fadeOut("slow", function () {
+		   $('.NAVcompONENT').addClass("hidden");
+		   $('.darkback').addClass("hidden");
+		   
+	   });
+	   
+   });
+   
+   $(".mobile-action .title").click(function(){
+	   $(".mobile-action .footer__nav--links").removeClass('activefooter');
+	   $(this).parent('.footer__nav--container').find('.footer__nav--links').toggleClass('activefooter');
+	   $(this).toggleClass('activefooterlink');
+	   });
+   
+   
+   //set palceholder  in register page
+   
+   
+   /*let label_fisrt_name= $('.first-name label').text().trim();
+   $('[id*="register.firstName"]').attr("placeholder", label_fisrt_name);
+   
+   let label_last_name= $('.last-name label').text().trim();
+   $('[id*="register.lastName"]').attr("placeholder", label_last_name);
+   
+   let label_mobile_name= $('.mobile_number label').text().trim();
+   $('[id*="register.mobileNumber"]').attr("placeholder", label_mobile_name);
+   
+   let label_email_name= $('.email label').text().trim();
+   $('[id*="register.email"]').attr("placeholder", label_email_name);
+   */
+   let label_pass= $('.pass label').text().trim();
+   $('[id*="password"]').attr("placeholder", label_pass);
+   
+   let label_pass_con= $('.pass_con label').text().trim();
+   $('[id*="register.checkPwd"]').attr("placeholder", label_pass_con);
+   
+   
+   
+   // set placeholder in login page
+   /*let label_email_login=$('.email_login label').text().trim();
+   
+   $('[id*="j_username').attr("placeholder", label_email_login);*/
+   
+   
+   
+   //set palceholder password in login_form in home_page
+   let label=$('.password-holder .control-label').text().trim();
+   
+   $('[id*="j_password"]').attr("placeholder", label);
+   
+   
+   /*let label_email_loginpop=$('.user_name_popup label').text().trim();
+   
+   
+   $('[id*="j_username').attr("placeholder", label_email_loginpop);
+   
+   */
+   
+   
+   
+   
+   $(".js-offcanvas-links").sticky({topSpacing:0});
+   $('.js-offcanvas-links').on('sticky-start', function() { $('body').addClass('top_padding') });
+  $('.js-offcanvas-links').on('sticky-end', function() { $('body').removeClass('top_padding') });
+   
+   $("#fade-example .js-tabs-link").aniTabs();
+   
+   
+   //add checked in radio in slot time
+   $("input[name='selector_selector']").click(function(){
+		var data_code = $("input[name='selector_selector']:checked").data('code');
+		   var data_start = $("input[name='selector_selector']:checked").data('start');
+		   var data_end = $("input[name='selector_selector']:checked").data('end');
+		   var data_day = $("input[name='selector_selector']:checked").data('day');
+		   var data_date = $("input[name='selector_selector']:checked").data('date');
+		   $("#periodCode").attr("value",data_code)
+			$("#start").attr("value",data_start)
+			$("#end").attr("value",data_end);
+		   $("#day").attr("value",data_day);
+		   $("#date").attr("value",data_date);
+		  console.log(data_code,data_start,data_end,data_day,data_date)
+   });
+   
+   //qty in cartpage
+   
+   $('.plus').click ( function () {
+	   var form = $(this).closest('form');
+	   var productCode = form.find('input[name=quantity]').val();
+	   var initialCartQuantity = form.find('input[name=initialQuantity]').val();
+	   var newCartQuantity =  parseFloat(initialCartQuantity) + 1;
+	   form.find('input[name=quantity]').val(newCartQuantity);
+   
+		 form.submit();
+	   });
+   $('.minus').click (function () { 
+		   var form = $(this).closest('form');
+		   var productCode = form.find('input[name=productCode]').val();
+		   var initialCartQuantity = form.find('input[name=initialQuantity]').val();
+		   var newCartQuantity = parseFloat(initialCartQuantity) - 1;
+		   form.find('input[name=quantity]').val(newCartQuantity);
+		   
+			 form.submit();
+			 });
+   
+   
+   
+   
+   
+          $("input[name='storeCredit']").click(function(){
+            var checked_item = $("input[name='storeCredit']:checked").attr('id');
+           $("#sctCode").val(checked_item)
+           if(checked_item == "REDEEM_SPECIFIC_AMOUNT"){
+              
+           $(".storeCreditAmount").css("display","inline-block")	
+           }
+           else
+           {
+              
+              $(".storeCreditAmount").css("display","none");
+              
+           }
+           
+        });
+      
+        //payment method on load
+      var payment_ul= $('#selectPaymentMethodForm ul li');
+      for (let li of payment_ul) {
+         var nameClass= $(li).hasClass( "selected" )
+            if(nameClass)
+               {			
+               var input_pay = $("input[name='paymentmothed']").parent('label');
+               for(let label_pay of input_pay)
+                  {
+                  if($(label_pay).text().trim() ==$(li).find('.text').text().trim() )
+                     {
+                     $(label_pay).find('input').attr('checked',true)
+                     
+                     
+                     }
+                  
+                  }
+               }
+      }
+      //payment method in change value
+      $("input[name='paymentmothed']").click(function(){
+         
+         
+            $("#selectPaymentMethodForm select.form-control").val($(this).val());
+            
+         
+      });  
+	   
+   
+   
+   $('.nav__link--drill__down').click (function () { 
+   
+   $(".navigation__overflow").animate({ scrollTop: 0 });});
+   
+   
+   $("input[name='storeCredit']").click(function(){
+		var checked_item = $("input[name='storeCredit']:checked").attr('id');
+	   $("#sctCode").val(checked_item)
+	   if(checked_item == "REDEEM_SPECIFIC_AMOUNT"){
+		   
+	   $(".storeCreditAmount").css("display","inline-block")	
+	   }
+	   else
+	   {
+		   
+		   $(".storeCreditAmount").css("display","none");
+		   
+	   }
+	   
+   });
+  
+   var label_p=$('.password_login .control-label ').text().trim();
+  
+if(!label_p){
+	label_p = $('.password-holder .control-label').text().trim();
+}
+$('[id*="j_password"]').attr("placeholder", label_p);
+
+$('.js-move-to-cart-button').click (function () { 
+   $('.addWishlistEntrywithremove').trigger( "click" );
+   
+
+
+});
+
+$('.removebtn').click(function(){
+   console.log($(this).parent('.item__info').find('.js-execute-entry-action-button').html())
+	$(this).parent('.item__info').find('.js-execute-entry-action-button').click()
+	
+	
+})
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+   $('select').selectpicker('mobile');
+}
+$(".count5").mCustomScrollbar();
+
+
+function getMobileOperatingSystem() {
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+
+    // iOS detection from: http://stackoverflow.com/a/9039885/177710
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        $(".applePayaction").removeClass("hidden");    }
+
+}
+if ($(".applePayaction").length) {
+	getMobileOperatingSystem()
+}
+
+$(".accNavComponent__child-wrap  .liOffcanvas a").click(function(event){
+	event.preventDefault();
+    $.removeCookie("saccstorefrontRememberMe");
+    $.removeCookie('saccstorefrontRememberMe', { path: '/' });
+
+	window.location = $(this).attr('href');
+	});
+

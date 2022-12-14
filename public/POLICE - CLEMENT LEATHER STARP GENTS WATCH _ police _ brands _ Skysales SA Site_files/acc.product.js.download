@@ -1,0 +1,185 @@
+ACC.product = {
+
+    _autoload: [
+        "bindToAddToCartForm",
+        "enableStorePickupButton",
+        "enableVariantSelectors",
+       "bindFacets",
+         "bindProductDataToGA",
+         "bindPromotionToGA",
+         "bindSearchResultsDataToGA"
+    ],
+bindSearchResultsDataToGA : function(){
+ $(document).on("click", ".productGridClickItem", function (e) {
+
+            var items = {
+                "id":$(this).data('id'),
+                                "name":$(this).data('name'),
+                                "saleStatus": $(this).data("salestatus"),
+                                "stockLevelStatus": $(this).data("stocklevelstatus"),
+                                "discountPercent": $(this).data("percentage"),
+                                "discountPrice": $(this).data("discountprice"),
+                                "price":$(this).data("price"),
+                                 "pagetype":$(this).data("pagetype")
+
+                };
+            ACC.track.trackProductClick(items);
+        });
+},
+ bindProductDataToGA: function () {
+        $(document).on("click", ".js-owl-carousel .owl-item .carousel__item.itemtheme", function (e) {
+
+            var items = {
+                "id":$(this).data('id'),
+                "name":$(this).data('name'),
+                "saleStatus": $(this).data("salestatus"),
+                "stockLevelStatus": $(this).data("stocklevelstatus"),
+                "discountPercent": $(this).data("percentage"),
+                "discountPrice": $(this).data("discountprice"),
+                "price":$(this).data("price"),
+                "pagetype":$(this).data("pagetype")
+
+                };
+            ACC.track.trackProductClick(items);
+        });
+    },
+  bindPromotionToGA: function () {
+           $(document).on('click','.promotionClick',function(e){
+          var id = $(this).find('#id').val();
+          var name = $(this).find('#name').val();
+          var banners = $(this).find('#banners').val();
+          var slots = $(this).find('#slots').val();
+           ACC.track.trackPromotionClick(id, name,banners,slots);
+             });
+         },
+
+
+    bindFacets: function () {
+        $(document).on("click", ".js-show-facets", function (e) {
+            e.preventDefault();
+            $(".js-product-facet").toggleClass('show-facet');
+            
+           
+        });
+        $(document).on("click", ".hide-facets", function (e) {
+            e.preventDefault();
+            $(".js-product-facet").removeClass('show-facet');
+            
+           
+        });
+        
+        enquire.register("screen and (min-width:" + screenSmMax + ")", function () {
+            $("#cboxClose").click();
+        });
+    },
+
+
+    enableAddToCartButton: function () {
+        $('.js-enable-btn').each(function () {
+            if (!($(this).hasClass('outOfStock') || $(this).hasClass('out-of-stock'))) {
+                $(this).prop("disabled", false);
+            }
+        });
+    },
+
+    enableVariantSelectors: function () {
+        $('.variant-select').prop("disabled", false);
+    },
+
+    bindToAddToCartForm: function () {
+
+        var addToCartForm = $('.add_to_cart_form');
+        addToCartForm.ajaxForm({
+        	beforeSubmit:ACC.product.showRequest,
+        	success: ACC.product.displayAddToCartPopup
+         });    
+        setTimeout(function(){
+        	$ajaxCallEvent  = true;
+         }, 2000);
+     },
+     showRequest: function(arr, $form, options) {  
+    	 if($ajaxCallEvent)
+    		{
+    		 $ajaxCallEvent = false;
+    		 return true;
+    		}   	
+    	 return false;
+ 
+    },
+
+    bindToAddToCartStorePickUpForm: function () {
+        var addToCartStorePickUpForm = $('#colorbox #add_to_cart_storepickup_form');
+        addToCartStorePickUpForm.ajaxForm({success: ACC.product.displayAddToCartPopup});
+    },
+
+    enableStorePickupButton: function () {
+        $('.js-pickup-in-store-button').prop("disabled", false);
+    },
+
+    displayAddToCartPopup: function (cartResult, statusText, xhr, formElement) {
+    	$ajaxCallEvent=true;
+        $('#addToCartLayer').remove();
+        if (typeof ACC.minicart.updateMiniCartDisplay == 'function') {
+            ACC.minicart.updateMiniCartDisplay();
+        }
+        var titleHeader = $('#addToCartTitle').html();
+
+        ACC.colorbox.open(titleHeader, {
+            html: cartResult.addToCartLayer,
+            width: "460px"
+        });
+
+        var productCode = $('[name=productCodePost]', formElement).val();
+        var quantityField = $('[name=qty]', formElement).val();
+
+        var quantity = 1;
+        if (quantityField != undefined) {
+            quantity = quantityField;
+        }
+
+        var cartAnalyticsData = cartResult.cartAnalyticsData;
+
+        var cartData = {
+            "cartCode": cartAnalyticsData.cartCode,
+            "productCode": productCode, "quantity": quantity,
+            "productPrice": cartAnalyticsData.productPostPrice,
+            "productName": cartAnalyticsData.productName,
+            "saleStatus":cartAnalyticsData.saleStatus,
+            "stockLevelStatus":cartAnalyticsData.stockLevelStatus,
+            "discountPercent":cartAnalyticsData.discountPercent,
+            "discountPrice":cartAnalyticsData.discountPrice
+        };
+        ACC.track.trackAddToCart(productCode, quantity, cartData);
+    }
+};
+
+$(document).ready(function () {
+	if($(".page-homepage").length) {
+		$("input[name=CSRFToken]").val(ACC.config.CSRFToken);
+		}
+	
+	$ajaxCallEvent = true;
+    ACC.product.enableAddToCartButton();
+    $(document).on("click", " .js-product-facet .js-facet-name", function (e) {
+        e.preventDefault();
+
+        $(this).parents(".js-facet").toggleClass("active");
+        $.colorbox.resize()
+    });
+    $('.searchText').bind('keyup', function() {
+   
+        var searchString = $(this).val();
+        var list = $(this).parents('.facet').find('ul');
+        $(list).find('li').each(function(index, value) {
+            
+            currentName = $(value).text()
+            if( currentName.toUpperCase().indexOf(searchString.toUpperCase()) > -1) {
+               $(value).show();
+            } else {
+                $(value).hide();
+            }
+            
+        });
+        
+    });
+});
