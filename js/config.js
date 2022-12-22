@@ -518,10 +518,10 @@ class sceneSetup {
     this.controls.dampingFactor = 0.07;
     // this.controls.enableDamping = true;
     // this.controls.dampingFactor = 0.07;
-    // this.controls.minZoom = 1;
-    // this.controls.maxZoom = 10;
-    // this.controls.minDistance = 0.14;
-    // this.controls.maxDistance = 0.2;
+    // this.controls.minZoom = 15;
+    // this.controls.maxZoom = 30;
+    this.controls.minDistance = 15;
+    this.controls.maxDistance = 30;
     // this.controls.constraint.smoothZoom = true;
     // this.controls.constraint.zoomDampingFactor = 0.2;
     // this.controls.constraint.smoothZoomSpeed = 5.0;
