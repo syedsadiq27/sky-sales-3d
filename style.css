@@ -1,0 +1,137 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.box{
+    margin: 10px;
+    height: 250px;
+    background-color: #fff;
+}
+
+.config-sub-menu {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    background: #003863;
+    padding: 10px 10% 10px 10%;
+  }
+  .txt-div {
+    display: flex;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    position: sticky;
+    top: 0px;
+    background: #003863;
+    z-index: 1;
+    -webkit-box-align: center;
+    align-items: flex-start;
+  }
+  .txt-h1 {
+    word-break: break-word;
+    margin: 0px;
+    color: white;
+    font-size: 25px;
+  }
+  
+  .txt-h2 {
+    word-break: break-word;
+    margin: 0px;
+    color: white;
+  }
+  .txt-h3 {
+    color: white;
+    margin-bottom: -1.5em;
+    margin-top: 10px;
+  }
+  .add-material-texture{
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 10% 5% 0% 0%;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    grid-gap: 30px 15px;
+    gap: 30px 17px;
+}
+
+.scroller::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scroller::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .scroller::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #e66208;
+  }
+  .scroller {
+    overflow-x: auto;
+    overflow-y: hidden;
+    /* -ms-overflow-style: auto; */
+  }
+  .add-material{
+    margin-bottom: 2%;
+    background:transparent;
+    border: none;
+}
+.add-material-image-box{
+    height: 60px;
+    width: 60px;
+    padding: 0;
+    /* border: 0; */
+    border-radius: 6px;
+
+}
+.person{
+  display: flex;
+  display: flex;
+  flex-wrap: nowrap;
+  /* margin: 10% 5% 0% 0%; */
+  gap: 30px 17px;
+
+    /* width: 90px; */
+    height: 90px;
+}
+.image{
+  height: 88px;
+  width: 88px;
+  border-radius: 3px;
+}
+.img{
+  /* border: 1px solid #767676; */
+  cursor: pointer;
+  height: 88px;
+  width: 88px;
+  border-radius: 3px;
+}
+
+.activeBorder{
+  border: 1px solid #767676;
+}
+#demo{
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+
+}
+
+.field-group{
+
+  display: grid;
+
+  grid-template-columns: 70px  auto;
+
+  grid-gap: 5px;
+
+  /* background-color: #2196F3; */
+
+  padding: 2px;
+
+}
+
+
