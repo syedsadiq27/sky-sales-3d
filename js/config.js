@@ -109,7 +109,7 @@ $(document).ready(function () {
       url: "./assets/tex/newTexture/jpg/blackDial.jpg",
     },
     Gold: {
-      url: "./assets/tex/newTexture/jpg/goldDial.jpg",
+      url: "./assets/tex/newTexture/jpg/dialMap.jpg",
     },
   };
   var dailArray = [
@@ -123,7 +123,7 @@ $(document).ready(function () {
     },
     {
       name: "Gold",
-      image: "assets/icons/dial/GoldDial.png",
+      image: "assets/icons/dial/white.png",
     },
   ];
   Object.entries(iconArray).forEach((entry) => {
