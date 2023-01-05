@@ -41185,6 +41185,7 @@ a[data-zoom-id] img,
   border: 0;
   border-bottom: 2px solid transparent;
   box-sizing: border-box;
+  width: 100px;
 }
 /** Thumbnails in expanded view **/
 .mz-expand-thumbnails {

@@ -7,6 +7,7 @@ import { GLTFLoader } from "./libs/GLTFLoader.js";
 // import { ShaderPass } from './libs/ShaderPass.js';
 // import { CopyShader } from './libs/CopyShader.js';
 // import { SSAOPass  } from './libs/SAOPass.js';
+
 let init, modelLoad, composer;
 let gltfpath = "assets/model/watch.glb";
 let strapMat,
@@ -44,6 +45,9 @@ $(document).ready(function () {
   frameConfigSection.classList.add("person");
   dailConfigSection.classList.add("person");
   const configrations = ["#C0C0C0", "#8f573f"];
+
+
+
   configrations.forEach((entry) => {
     var elem = document.createElement("div");
     elem.setAttribute("id", entry);
@@ -75,7 +79,7 @@ $(document).ready(function () {
       });
     }
   });
-  frameConfigDiv.appendChild(frameConfigSection);
+  // frameConfigDiv.appendChild(frameConfigSection);
   let textureMap = {
     Gold: {
       url: "./assets/tex/newTexture/jpg/Watch_low_BaseColor_Red.jpg",
@@ -138,7 +142,7 @@ $(document).ready(function () {
     //   elem.setAttribute("border", "1px solid #767676");
     // }
     elem.addEventListener("click", handleClick);
-    strapConigSection.appendChild(elem);
+    // strapConigSection.appendChild(elem);
     function handleClick(e) {
       // strapConigSection.forEach(item => item.classList.remove("activeBorder"))
       // e.target.classList.add("activeBorder");
@@ -172,7 +176,7 @@ $(document).ready(function () {
     elem.setAttribute("width", "88");
     elem.setAttribute("border", "1px solid #767676");
     elem.addEventListener("click", handleClick);
-    dailConfigSection.appendChild(elem);
+    // dailConfigSection.appendChild(elem);
     function handleClick(e) {
       init.scene.traverse(function (child) {
         //cosole.log(child.name);
@@ -194,8 +198,8 @@ $(document).ready(function () {
       });
     }
   });
-  strapConfigDiv.appendChild(strapConigSection);
-  dailConfigDiv.appendChild(dailConfigSection);
+  // strapConfigDiv.appendChild(strapConigSection);
+  // dailConfigDiv.appendChild(dailConfigSection);
   function toogleContainer(value) {
     const twoD = document.getElementById("2d-image");
     const threeD = document.getElementById("3d-canvas");
@@ -250,8 +254,8 @@ $(document).ready(function () {
     const option = document.createElement("option");
     option.setAttribute("value", fontItem.value);
     let optionText = document.createTextNode(fontItem.label);
-    option.appendChild(optionText);
-    select.appendChild(option);
+    // option.appendChild(optionText);
+    // select.appendChild(option);
   });
   input.addEventListener("input", changeText);
   select.addEventListener("change", changeText);
@@ -289,12 +293,12 @@ $(document).ready(function () {
   hOffsetDiv.appendChild(hOffsetSlider);
   vOffsetDiv.innerHTML = vOffsetLabel;
   vOffsetDiv.appendChild(vOffsetSlider);
-  textbox.appendChild(inputDiv);
-  textbox.appendChild(fontDiv);
-  textbox.appendChild(colorDiv);
-  textbox.appendChild(fontSizeDiv);
-  textbox.appendChild(hOffsetDiv);
-  textbox.appendChild(vOffsetDiv);
+  // textbox.appendChild(inputDiv);
+  // textbox.appendChild(fontDiv);
+  // textbox.appendChild(colorDiv);
+  // textbox.appendChild(fontSizeDiv);
+  // textbox.appendChild(hOffsetDiv);
+  // textbox.appendChild(vOffsetDiv);
   // 3D Scene Setup
   const container = document.getElementById("3d-canvas");
   const twodcontainer = document.getElementById("2d-image");
